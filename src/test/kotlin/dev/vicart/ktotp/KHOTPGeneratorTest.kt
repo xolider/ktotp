@@ -10,7 +10,8 @@ class KHOTPGeneratorTest {
         val expected = "999981"
 
         val generator = KHOTPGenerator()
-        val code = generator.generateCode("testSecretKey", 0)
+        val couter = 0x00.toByte()
+        val code = generator.generateCode("testSecretKey", couter)
         assertEquals(expected, code)
     }
 }
