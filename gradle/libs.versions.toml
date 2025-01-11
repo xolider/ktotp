@@ -1,7 +1,12 @@
 [versions]
 kotlin = "2.0.21"
 dokka = "2.0.0"
+semantic-version = "2.0.0"
+
+[libraries]
+semantic-version = { module = "com.dipien:semantic-version-gradle-plugin", version.ref = "semantic-version" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+semantic-version = { id = "com.dipien.semantic-version" }

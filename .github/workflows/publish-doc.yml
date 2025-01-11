@@ -1,0 +1,42 @@
+name: Deploy documentation on Github Pages
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Generate documentation
+        run: ./gradlew --no-daemon dokkaHtml
+      - name: Upload doc
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'build/dokka/html'
+      - name: Deploy to Github Pages
+        uses: actions/deploy-pages@v4
+        id: deployment

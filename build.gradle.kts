@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath(libs.semantic.version)
+    }
+}
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.dokka)
@@ -6,7 +12,11 @@ plugins {
 }
 
 group = "dev.vicart"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
+
+apply {
+    plugin(libs.plugins.semantic.version.get().pluginId)
+}
 
 repositories {
     mavenCentral()
